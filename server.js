@@ -11,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts')
 
 // hook our application to router
 const indexRouter = require('./routes/index')
+const authorRouter = require(''./routes/authors')
 
 // set our view engine, in this case, we are gonna use ejs as our view engine
 app.set('view engine','ejs')
@@ -31,6 +32,8 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 
 
+
+
 // using mongoose library used for mongoDB
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
@@ -42,6 +45,8 @@ db.once('open',() => console.log('Connected to Mongoose'))
 
 // to use route path and router
 app.use('/', indexRouter)
+
+app.use('/authors', authorRouter)
 
 // we want our app to listen to a certain port
 app.listen(process.env.PORT || 3000)
